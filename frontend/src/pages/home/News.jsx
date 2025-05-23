@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Pagination, Navigation } from 'swiper/modules';
+import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 
 import news1 from "../../assets/news/news-1.png"
 import news2 from "../../assets/news/news-2.png"
@@ -55,6 +55,16 @@ const News = () => {
         slidesPerView={1}
         spaceBetween={30}
         navigation={true}
+        loop={true}
+        speed={800}
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+          reverseDirection: false
+        }}
+        loopAdditionalSlides={2}
+        loopedSlides={2}
         breakpoints={{
           640: {
             slidesPerView: 1,
@@ -69,7 +79,7 @@ const News = () => {
             spaceBetween: 50,
           },
         }}
-        modules={[Pagination, Navigation]}
+        modules={[Pagination, Navigation, Autoplay]}
         className="mySwiper"
       >
         

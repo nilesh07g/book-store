@@ -15,13 +15,14 @@ import Dashboard from "../pages/dashboard/Dashboard.jsx";
 import ManageBooks from "../pages/dashboard/manageBooks/ManageBooks.jsx";
 import AddBook from "../pages/dashboard/addBook/AddBook.jsx";
 import UpdateBook from "../pages/dashboard/EditBook/UpdateBook.jsx";
+import WishlistPage from "../pages/books/WishlistPage";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element:<App />,
-    children:[
+    element: <App />,
+    children: [
         {
             path: "/",
             element: <Home />,
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/books/:id",
         element: <SingleBook/>
+      },
+      {
+        path: "/wishlist",
+        element: <WishlistPage />,
       }
        
     ]

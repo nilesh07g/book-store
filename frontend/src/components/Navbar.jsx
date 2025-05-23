@@ -12,6 +12,7 @@ const navigation = [
     {name: "Dashboard", href:"/user-dashboard"},
     {name: "Orders", href:"/orders"},
     {name: "Cart Page", href:"/cart"},
+    {name: "Wishlist", href:"/wishlist"},
     {name: "Check Out", href:"/checkout"},
 ]
 
@@ -19,6 +20,7 @@ const Navbar = () => {
 
     const  [isDropdownOpen, setIsDropdownOpen] = useState(false)
     const cartItems = useSelector(state => state.cart.cartItems);
+    const wishlistItems = useSelector(state => state.wishlist.wishlistItems);
    
     const {currentUser, logout} = useAuth()
     
@@ -86,9 +88,6 @@ const Navbar = () => {
                         }
                     </div>
                     
-                    <button className="hidden sm:block">
-                        <HiOutlineHeart className="size-6" />
-                    </button>
 
                     <Link to="/cart" className="bg-primary p-1 sm:px-6 px-2 flex items-center rounded-sm">
                         <HiOutlineShoppingCart className='' />
@@ -97,6 +96,14 @@ const Navbar = () => {
                         }
                         
                        
+                    </Link>
+                    <Link to="/wishlist" className="hidden sm:block relative">
+                        <HiOutlineHeart className="size-6" />
+                        {wishlistItems.length > 0 && (
+                            <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                                {wishlistItems.length}
+                            </span>
+                        )}
                     </Link>
                 </div>
             </nav>
