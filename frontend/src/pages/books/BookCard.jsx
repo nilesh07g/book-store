@@ -1,22 +1,43 @@
 import React from 'react'
 import { FiShoppingCart } from "react-icons/fi";
+import { HiOutlineHeart, HiHeart } from "react-icons/hi2";
 import { getImgUrl } from '../../utils/getImgUrl';
 import { Link } from 'react-router-dom';
-
-import { useDispatch } from'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../../redux/features/cart/cartSlice'
+import { addToWishlist, removeFromWishlist } from '../../redux/features/wishlist/wishlistSlice'
 
 const BookCard = ({book}) => {
-  const dispatch =  useDispatch();
+  const dispatch = useDispatch();
+  const wishlistItems = useSelector(state => state.wishlist.wishlistItems);
+  const isInWishlist = wishlistItems.some(item => item._id === book._id);
 
   const handleAddToCart = (product) => {
       dispatch(addToCart(product))
+  }
+
+  const handleWishlist = (product) => {
+    if (isInWishlist) {
+      dispatch(removeFromWishlist(product))
+    } else {
+      dispatch(addToWishlist(product))
+    }
   }
   
   return (
     <div className="rounded-lg transition-shadow duration-300 p-2">
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 h-full">
-        <div className="w-full sm:w-auto sm:h-64 flex-shrink-0 border rounded-md">
+        <div className="w-full sm:w-auto sm:h-64 flex-shrink-0 border rounded-md relative">
+          <button 
+            onClick={() => handleWishlist(book)}
+            className="absolute top-3 right-3 z-10 p-2.5 bg-white/90 hover:bg-white rounded-full shadow-lg transition-all duration-200 backdrop-blur-sm group"
+          >
+            {isInWishlist ? (
+              <HiHeart className="size-6 text-red-500 transform group-hover:scale-110 transition-transform" />
+            ) : (
+              <HiOutlineHeart className="size-6 text-gray-600 hover:text-red-500 transform group-hover:scale-110 transition-transform" />
+            )}
+          </button>
           <Link to={`/books/${book._id}`}>
             <img
               src={`${getImgUrl(book.coverImage)}`}
